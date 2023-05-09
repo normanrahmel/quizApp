@@ -1,0 +1,114 @@
+<div (onload)="init()" id="main-content">
+  <!-- Heading -->
+  <nav class="navbar navbar-light bg-light">
+    <div class="container-fluid">
+      <h1 class="navbar-brand mb-0 h1">Quiz-App</h1>
+    </div>
+  </nav>
+  <!-- Card -->
+  <div class="player-select-container">
+    <label for="playerCount">Spieleranzahl:</label>
+    <select name="playerCount" id="playerCount">
+      <option value="1">1 Spieler</option>
+      <option value="2">2 Spieler</option>
+    </select>
+  </div>
+
+  <div class="containerCard">
+    <div class="card quizCard" id="quizCard">
+      <div
+        class="containerCardImg"
+        id="questionMarkPicture"
+        #questionMarkPicture
+      >
+        <img src="assets/img/fragezeichen.png" class="card-img-top" />
+      </div>
+
+      <div class="progress" id="progressEndScreen" #progressEndScreen>
+        <div
+          id="progressBar"
+          class="progress-bar"
+          role="progressbar"
+          #progressBar
+          style="width: 25%"
+          aria-valuenow="25"
+          aria-valuemin="0"
+          aria-valuemax="100"
+        >
+          25%
+        </div>
+      </div>
+
+      <div
+        class="card-body marginContainer"
+        id="endScreen"
+        #endScreen
+        style="display: none"
+      >
+        <h2>Quiz beendet!</h2>
+        <div class="marginContainer">
+          <img src="assets/img/winner.jpg" />
+        </div>
+        <div class="marginContainer">
+          <span
+            >Du hast
+            <b id="amountOfRightQuestions" #amountOfRightQuestions>X</b> Fragen
+            von <b id="amountOfQuestions" #amountOfQuestions>X</b> Fragen
+            <b>richtig</b> Beantwortet!</span
+          >
+        </div>
+        <div class="buttonRestart">
+          <button (click)="restartGame()" class="btn btn-primary">
+            Erneut Spielen
+          </button>
+        </div>
+      </div>
+
+      <div class="card-body" id="quizBody" #quizBody>
+        <h5 class="card-title" id="questionText" #questionText>Frage</h5>
+        <div id="containerAnswer">
+          <div class="card mb-2 quizAnswer" (click)="answer('answer1')">
+            <div class="card-body" id="answer1" #answer1></div>
+          </div>
+          <div class="card mb-2 quizAnswer" (click)="answer('answer2')">
+            <div class="card-body" id="answer2" #answer2></div>
+          </div>
+
+          <div class="card mb-2 quizAnswer" (click)="answer('answer3')">
+            <div class="card-body" id="answer3" #answer3></div>
+          </div>
+
+          <div class="card mb-2 quizAnswer" (click)="answer('answer4')">
+            <div class="card-body" id="answer4" #answer4></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="questionFooter">
+        <span>
+          <b id="questionNumber">1</b> von <b id="allQuestions">5</b> Frage
+        </span>
+
+        <button
+          [disabled]="nextButtonDisabled"
+          (click)="nextQuestion()"
+          class="btn btn-primary"
+          id="nextButton"
+          #nextButton
+        >
+          Nächste Frage
+        </button>
+      </div>
+    </div>
+
+    <div class="Footer-Pos">
+      <div class="paddingLeftRight footer-fields">
+        <div>©Copyright 2023</div>
+        <div class="law">
+          <a href="datenschutz.html" target="_blank">Datenschutz</a> |
+          <a href="impressum.html" target="_blank">Impressum</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
