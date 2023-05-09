@@ -1,0 +1,20 @@
+<h1 mat-dialog-title>Add new Player</h1>
+<div mat-dialog-content>
+  <p>Pleas enter the name of a Player!</p>
+  <mat-form-field appearance="fill">
+    <mat-label>New Player...</mat-label>
+    <input matInput [(ngModel)]="name" />
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <!--Button kann nur geklickt werden wenn die länge des Input Feldes mit der Var Name größer als 0 ist-->
+  <button
+    mat-button
+    [mat-dialog-close]="name"
+    [disabled]="name.length == 0"
+    cdkFocusInitial
+  >
+    Ok
+  </button>
+</div>

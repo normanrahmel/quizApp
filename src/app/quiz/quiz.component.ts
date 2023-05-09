@@ -233,18 +233,6 @@ export class QuizComponent implements OnInit, AfterViewInit {
       this.rightQuestions.toString();
   }
 
-  /* showNextQuestion() {
-    const question = this.questions[this.currentQuestion];
-    this.questionNumber.nativeElement.innerHTML = (
-      this.currentQuestion + 1
-    ).toString();
-    this.questionText.nativeElement.innerHTML = question['question'];
-    this.answer1.nativeElement.innerHTML = question['answer1'];
-    this.answer2.nativeElement.innerHTML = question['answer2'];
-    this.answer3.nativeElement.innerHTML = question['answer3'];
-    this.answer4.nativeElement.innerHTML = question['answer4'];
-
-  }*/
   showNextQuestion() {
     const question = this.questions[this.currentQuestion];
 

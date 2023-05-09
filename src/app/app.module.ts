@@ -6,6 +6,19 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { QuizComponent } from './quiz/quiz.component';
 import { EndScreenComponent } from './end-screen/end-screen.component';
+import { DialogAddPlayerComponent } from './dialog-add-player/dialog-add-player.component';
+import { DialogShareComponent } from './dialog-share/dialog-share.component';
+import { FormsModule } from '@angular/forms';
+import { MatDialogModule } from '@angular/material/dialog';
+
+import { MatButtonModule } from '@angular/material/button';
+
+import { MatIconModule } from '@angular/material/icon';
+import { MatDialogClose } from '@angular/material/dialog';
+
+import { MatCardModule } from '@angular/material/card';
+import { MatInputModule } from '@angular/material/input';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -13,8 +26,20 @@ import { EndScreenComponent } from './end-screen/end-screen.component';
     LoginComponent,
     QuizComponent,
     EndScreenComponent,
+    DialogAddPlayerComponent,
+    DialogShareComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    MatButtonModule,
+    FormsModule,
+    MatIconModule,
+    MatDialogModule,
+    MatCardModule,
+    MatInputModule,
+    BrowserAnimationsModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
