@@ -5,14 +5,15 @@
       <h1 class="navbar-brand mb-0 h1">Quiz-App</h1>
     </div>
   </nav>
-  <!-- Card -->
+
+  <!-- Card Spieleranzahl 
   <div class="player-select-container">
     <label for="playerCount">Spieleranzahl:</label>
     <select name="playerCount" id="playerCount">
       <option value="1">1 Spieler</option>
       <option value="2">2 Spieler</option>
     </select>
-  </div>
+  </div>-->
 
   <div class="containerCard">
     <div class="card quizCard" id="quizCard">
@@ -102,6 +103,12 @@
       </div>
     </div>
 
+    <button class="add-player-button" (click)="openAddPlayerDialog()">
+      Add Player
+    </button>
+    <button class="share-button" (click)="openShareDialog()">Share Quiz</button>
+
+    <!-- Footer -->
     <div class="Footer-Pos">
       <div class="paddingLeftRight footer-fields">
         <div>©Copyright 2023</div>

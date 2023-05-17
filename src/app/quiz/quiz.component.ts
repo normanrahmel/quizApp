@@ -1,158 +1,3 @@
-/*import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { DbService } from '../db.service';
-
-
-@Component({
-  selector: 'app-quiz',
-  templateUrl: './quiz.component.html',
-  styleUrls: ['./style.css'],
-})
-export class QuizComponent implements OnInit {
-  currentQuestion = 0;
-  rightQuestions = 0;
-  questions: any[];
-  nextButtonDisabled = true;
-
-  constructor(private dbService: DbService) {}
-
-  ngOnInit(): void {
-    this.getQuestions();
-    this.init();
-  }
-
-  getQuestions() {
-    this.questions = this.dbService.getAllQuestions();
-  }
-
-  init() {
-    document.getElementById('allQuestions').innerHTML =
-      this.questions.length.toString();
-    this.showQuestion();
-  }
-
-  showQuestion() {
-    if (this.gameIsOver()) {
-      this.showEndScreen();
-    } else {
-      this.updateProgressBar();
-      this.showNextQuestion();
-    }
-  }
-
-  gameIsOver() {
-    return this.currentQuestion >= this.questions.length;
-  }
-
-  showEndScreen() {
-    document.getElementById('endScreen').style.display = '';
-    document.getElementById('quizBody').style.display = 'none';
-    document.getElementById('questionMarkPicture').style.display = 'none';
-    document.getElementById('progressEndScreen').style.display = 'none';
-    document.getElementById('amountOfQuestions').innerHTML =
-      this.questions.length.toString();
-    document.getElementById('amountOfRightQuestions').innerHTML =
-      this.rightQuestions.toString();
-  }
-
-  showNextQuestion() {
-    const question = this.questions[this.currentQuestion];
-    document.getElementById('questionNumber').innerHTML = (
-      this.currentQuestion + 1
-    ).toString();
-    document.getElementById('questionText').innerHTML = question['question'];
-    document.getElementById('answer1').innerHTML = question['answer1'];
-    document.getElementById('answer2').innerHTML = question['answer2'];
-    document.getElementById('answer3').innerHTML = question['answer3'];
-    document.getElementById('answer4').innerHTML = question['answer4'];
-  }
-
-  updateProgressBar() {
-    const percent = (this.currentQuestion + 1) / this.questions.length;
-    const roundedPercent = Math.round(percent * 100);
-
-    document.getElementById('progressBar').innerHTML = `${roundedPercent}%`;
-    document.getElementById('progressBar').style.width = `${roundedPercent}%`;
-  }
-
-  answer(selection) {
-    const question = this.questions[this.currentQuestion];
-    const selectedQuestionNumber = selection.slice(-1);
-    const idOfRightAnswer = `answer${question['rightAnswer']}`;
-    this.nextButtonDisabled = false;
-
-    if (this.rightAnswerSelected(selectedQuestionNumber, question)) {
-      document
-        .getElementById(selection)
-        .parentElement.classList.add('bg-success');
-
-      document
-        .getElementById('containerAnswer')
-        .classList.add('disabledbutton');
-      this.rightQuestions++;
-    } else {
-      document
-        .getElementById(selection)
-        .parentElement.classList.add('bg-danger');
-      document
-        .getElementById(idOfRightAnswer)
-        .parentElement.classList.add('bg-success');
-      document
-        .getElementById('containerAnswer')
-        .classList.add('disabledbutton');
-    }
-    this.nextButtonDisabled = false;
-    (document.getElementById('nextButton') as HTMLInputElement).disabled =
-      false;
-  }
-
-  rightAnswerSelected(selectedQuestionNumber, question) {
-    return selectedQuestionNumber == question['rightAnswer'];
-  }
-
-  nextQuestion() {
-    console.log('nextQuestion');
-    this.nextButtonDisabled = true;
-    this.currentQuestion++;
-    this.showQuestion();
-    (document.getElementById('nextButton') as HTMLInputElement).disabled = true;
-    this.resetAnswers();
-  }
-
-  resetAnswers() {
-    document
-      .getElementById('answer1')
-      .parentElement.classList.remove('bg-danger');
-    document
-      .getElementById('answer1')
-      .parentElement.classList.remove('bg-success');
-    document
-      .getElementById('answer2')
-      .parentElement.classList.remove('bg-danger');
-    document
-      .getElementById('answer2')
-      .parentElement.classList.remove('bg-success');
-    document
-      .getElementById('answer3')
-      .parentElement.classList.remove('bg-danger');
-    document
-      .getElementById('answer3')
-      .parentElement.classList.remove('bg-success');
-    document
-      .getElementById('answer4')
-      .parentElement.classList.remove('bg-danger');
-    document
-      .getElementById('answer4')
-      .parentElement.classList.remove('bg-success');
-    document
-      .getElementById('containerAnswer')
-      .classList.remove('disabledbutton');
-  }
-
-  restartGame() {
-    window.location.reload();
-  }
-}
-*/
 import {
   Component,
   OnInit,
@@ -161,7 +6,10 @@ import {
   AfterViewInit,
 } from '@angular/core';
 import { DbService } from '../db.service';
-
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+//import { DialogAddPlayerComponent } from './dialog-add-player.component';
+import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player.component';
+import { DialogShareComponent } from '../dialog-share/dialog-share.component';
 @Component({
   selector: 'app-quiz',
   templateUrl: './quiz.component.html',
@@ -172,7 +20,7 @@ export class QuizComponent implements OnInit, AfterViewInit {
   rightQuestions = 0;
   questions: any[];
   nextButtonDisabled = true;
-
+  name: string = '';
   @ViewChild('endScreen') endScreen: ElementRef;
   @ViewChild('quizBody') quizBody: ElementRef;
   @ViewChild('questionMarkPicture') questionMarkPicture: ElementRef;
@@ -188,7 +36,17 @@ export class QuizComponent implements OnInit, AfterViewInit {
   @ViewChild('progressBar') progressBar: ElementRef;
   @ViewChild('nextButton') nextButton: ElementRef;
 
-  constructor(private dbService: DbService) {}
+  constructor(private dbService: DbService, private dialog: MatDialog) {}
+
+  openAddPlayerDialog(): void {
+    this.dialog.open(DialogAddPlayerComponent);
+  }
+
+  openShareDialog(): void {
+    this.dialog.open(DialogShareComponent, {
+      width: '250px',
+    });
+  }
 
   ngOnInit(): void {
     this.getQuestions();

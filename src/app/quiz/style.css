@@ -5,7 +5,7 @@ body {
     min-height: calc(100% - 150px); /* Die Höhe des Footers abziehen */
     display: flex;
     flex-direction: column;
-    background: #89c8c8;
+    background: #a8d4d4;
     /* Fallback */
     animation: color 9s infinite linear;
     margin: 0px;
@@ -178,3 +178,41 @@ a:hover {
     border-radius: 4px;
     border: 1px solid #ccc;
 }
+
+.add-player-button {
+    position: fixed;
+    right: 20px;
+    bottom: 350px;
+    background-color: #0d6efd;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 1000;  /* to ensure the button is above all other elements */
+  }
+  
+  .add-player-button:hover {
+    background-color: #0d6efd;
+  }
+  .share-button {
+    position: fixed;
+    right: 20px;
+    bottom: 250px;  /* adjust this value so the buttons don't overlap */
+    background-color: #0d6efd;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 1000;
+  }
+  
+  .share-button:hover {
+    background-color: #0d6efd;
+  }
+  
+  
+  
