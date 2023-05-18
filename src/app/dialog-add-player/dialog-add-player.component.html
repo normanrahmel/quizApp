@@ -14,6 +14,7 @@
     [mat-dialog-close]="name"
     [disabled]="name.length == 0"
     cdkFocusInitial
+    (click)="addPlayer()"
   >
     Ok
   </button>

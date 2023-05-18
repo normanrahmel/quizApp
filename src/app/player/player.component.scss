@@ -1,0 +1,27 @@
+// player-list.component.scss
+.player {
+    display: flex;
+    align-items: center;
+    width: 300px;
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
+    background-color: rgba(208, 110, 110, 0.859);
+    overflow: hidden;
+
+    span {
+        margin-left: 16px;
+        font-size: 24px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+    img {
+        height: 50px;
+        width: 50px;
+        object-fit: cover;
+        border-radius: 100%;
+    }
+}
+
+.player-active {
+    background-color: #56a16ebc !important;
+}

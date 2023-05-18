@@ -47,7 +47,7 @@ export class QuizComponent implements OnInit, AfterViewInit {
 
   openAddPlayerDialog(): void {
     this.dialog.open(DialogAddPlayerComponent, {
-      width: '450px',
+      width: '400px',
       height: '300px',
     });
   }

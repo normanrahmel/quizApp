@@ -24,7 +24,9 @@ body {
 .h1 {
     font-size: 35px;
 }
-
+#questionText{
+    font-size: 20px;
+}
 .containerCard {
     display: flex;
     align-items: center;

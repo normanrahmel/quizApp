@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
+import { PlayerService } from '../player.service';
 
 @Component({
   selector: 'app-dialog-add-player',
@@ -9,9 +10,16 @@ import { MatDialogRef } from '@angular/material/dialog';
 export class DialogAddPlayerComponent {
   name: string = '';
 
-  constructor(public dialogRef: MatDialogRef<DialogAddPlayerComponent>) {}
+  constructor(
+    public dialogRef: MatDialogRef<DialogAddPlayerComponent>,
+    private playerService: PlayerService
+  ) {}
 
   onNoClick(): void {
+    this.dialogRef.close();
+  }
+  addPlayer(): void {
+    this.playerService.addPlayer(this.name);
     this.dialogRef.close();
   }
 }

@@ -21,6 +21,7 @@ import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DialogAddQuestionComponent } from './dialog-add-question/dialog-add-question.component';
 import { DialogConfirmComponentComponent } from './dialog-confirm-component/dialog-confirm-component.component';
+import { PlayerComponent } from './player/player.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { DialogConfirmComponentComponent } from './dialog-confirm-component/dial
     DialogShareComponent,
     DialogAddQuestionComponent,
     DialogConfirmComponentComponent,
+    PlayerComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,7 @@
+<!-- player-list.component.html -->
+<div *ngFor="let player of players">
+  <div class="player" [class.player-active]="player.active">
+    <img src="/assets/img/profile/{{ player.image }}" />
+    <span>{{ player.name }}</span>
+  </div>
+</div>
