@@ -10,6 +10,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 //import { DialogAddPlayerComponent } from './dialog-add-player.component';
 import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player.component';
 import { DialogShareComponent } from '../dialog-share/dialog-share.component';
+import { DialogAddQuestionComponent } from '../dialog-add-question/dialog-add-question.component';
 @Component({
   selector: 'app-quiz',
   templateUrl: './quiz.component.html',
@@ -37,14 +38,24 @@ export class QuizComponent implements OnInit, AfterViewInit {
   @ViewChild('nextButton') nextButton: ElementRef;
 
   constructor(private dbService: DbService, private dialog: MatDialog) {}
+  openAddQuestionDialog(): void {
+    this.dialog.open(DialogAddQuestionComponent, {
+      width: '1000px',
+      height: '600px',
+    });
+  }
 
   openAddPlayerDialog(): void {
-    this.dialog.open(DialogAddPlayerComponent);
+    this.dialog.open(DialogAddPlayerComponent, {
+      width: '450px',
+      height: '300px',
+    });
   }
 
   openShareDialog(): void {
     this.dialog.open(DialogShareComponent, {
-      width: '250px',
+      width: '450px',
+      height: '220px',
     });
   }
 

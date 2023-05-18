@@ -19,6 +19,8 @@ import { MatDialogClose } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DialogAddQuestionComponent } from './dialog-add-question/dialog-add-question.component';
+import { DialogConfirmComponentComponent } from './dialog-confirm-component/dialog-confirm-component.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +30,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     EndScreenComponent,
     DialogAddPlayerComponent,
     DialogShareComponent,
+    DialogAddQuestionComponent,
+    DialogConfirmComponentComponent,
   ],
   imports: [
     BrowserModule,

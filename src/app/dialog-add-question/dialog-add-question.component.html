@@ -1,0 +1,27 @@
+<h1 mat-dialog-title>Add new Question</h1>
+<div mat-dialog-content class="pos">
+  <p>Please enter a new question and its answer!</p>
+
+  <mat-form-field appearance="fill">
+    <mat-label>New Question...</mat-label>
+    <input matInput [(ngModel)]="question" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Answer...</mat-label>
+    <input matInput [(ngModel)]="answer" />
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <!-- Button can only be clicked if the length of the input field with the var question and answer is greater than 0 -->
+  <button
+    mat-button
+    [mat-dialog-close]="{ question: question, answer: answer }"
+    [disabled]="question.length == 0 || answer.length == 0"
+    cdkFocusInitial
+    (click)="addQuestion()"
+  >
+    Add Question
+  </button>
+</div>

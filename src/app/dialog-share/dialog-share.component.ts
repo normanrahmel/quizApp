@@ -6,11 +6,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./dialog-share.component.scss'],
 })
 export class DialogShareComponent {
+  isCopied = false;
   getURL() {
     navigator.clipboard.writeText(window.location.href);
     document.getElementById('message').classList.remove('d-none');
     setTimeout(() => {
       document.getElementById('message').classList.add('d-none');
     }, 2000);
+    this.isCopied = true;
   }
 }

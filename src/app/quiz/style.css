@@ -32,7 +32,7 @@ body {
     margin-left: 50px;
     margin-right: 50px;
     margin-bottom: 20px;
-    margin-top: 20px;
+    margin-top: 150px;
 }
 
 .quizCard {
@@ -156,29 +156,7 @@ a:hover {
         margin-top: 16px;
     }
 }
-/*Spielername*/
-.player-select-container {
-    position: fixed;
-    top: 50%;
-    right: 10px;
-    transform: translateY(-50%);
-    background-color: rgba(255, 255, 255, 0.8);
-    padding: 15px;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
-}
-
-.player-select-container label {
-    margin-right: 5px;
-}
-
-.player-select-container select {
-    font-size: 1rem;
-    padding: 4px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-}
-
+/*
 .add-player-button {
     position: fixed;
     right: 20px;
@@ -190,7 +168,7 @@ a:hover {
     font-size: 16px;
     border-radius: 5px;
     cursor: pointer;
-    z-index: 1000;  /* to ensure the button is above all other elements */
+    z-index: 1000;  
   }
   
   .add-player-button:hover {
@@ -199,7 +177,7 @@ a:hover {
   .share-button {
     position: fixed;
     right: 20px;
-    bottom: 250px;  /* adjust this value so the buttons don't overlap */
+    bottom: 250px;  
     background-color: #0d6efd;
     color: white;
     border: none;
@@ -214,5 +192,34 @@ a:hover {
     background-color: #0d6efd;
   }
   
+  .top-right {
+    position: fixed;
+    top: 0;
+    right: 0;
+    display: flex;
+    gap: 10px;  
+  }*/
   
+  .top-right {
+    position: fixed;
+    top: 100px; /* Optional: Erhöht den Abstand der Buttons von der oberen Kante des Bildschirms */
+    right: 100px; /* Optional: Erhöht den Abstand der Buttons von der rechten Kante des Bildschirms */
+    display: flex;
+    gap: 10px; /* Der Abstand zwischen den Buttons */
+  }
+  
+  .button {
+    background-color: #0d6efd;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 1000;  /* To ensure the button is above all other elements */
+  }
+  
+  .button:hover {
+    background-color: #0d6efd;
+  }
   

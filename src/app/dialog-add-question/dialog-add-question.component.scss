@@ -1,0 +1,14 @@
+.pos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /*Nebeneinader*/
+    flex-direction: column;
+}
+mat-form-field {
+    width: 100%; /* Make the form field take up the full width of its container */
+}
+
+input[matInput] {
+    height: 100px; /* Increase the height of the input field */
+}

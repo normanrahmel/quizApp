@@ -103,10 +103,13 @@
       </div>
     </div>
 
-    <button class="add-player-button" (click)="openAddPlayerDialog()">
-      Add Player
-    </button>
-    <button class="share-button" (click)="openShareDialog()">Share Quiz</button>
+    <div class="top-right">
+      <button class="button" (click)="openAddPlayerDialog()">Add Player</button>
+      <button class="button" (click)="openShareDialog()">Share Quiz</button>
+      <button class="button" (click)="openAddQuestionDialog()">
+        Add new Question
+      </button>
+    </div>
 
     <!-- Footer -->
     <div class="Footer-Pos">
