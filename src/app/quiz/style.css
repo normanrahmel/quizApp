@@ -224,4 +224,36 @@ a:hover {
   .button:hover {
     background-color: #0d6efd;
   }
-  
+
+  .Text {
+    width: 80%;
+    margin-top: 120px;
+    
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.381);
+  }
+
+.Text h2 {
+  color: #444;
+  font-size: 1.5em;
+  margin-bottom: 20px;
+}
+
+.Text p {
+  color: #666;
+  line-height: 1.6;
+  font-size: 1.2em;
+}
+/*Responsiv */
+@media (max-width: 770px) {
+  .Text {
+   display: none;
+  }
+}
+app-player {
+    position: fixed;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+}

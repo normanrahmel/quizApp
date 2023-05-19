@@ -1,7 +1,10 @@
 <h1 mat-dialog-title>Add new Question</h1>
 <div mat-dialog-content class="pos">
   <p>Please enter a new question and its answer!</p>
-
+  <mat-form-field appearance="fill">
+    <mat-label>Subject/request...</mat-label>
+    <input matInput />
+  </mat-form-field>
   <mat-form-field appearance="fill">
     <mat-label>New Question...</mat-label>
     <input matInput [(ngModel)]="question" />
@@ -22,6 +25,6 @@
     cdkFocusInitial
     (click)="addQuestion()"
   >
-    Add Question
+    Send Request
   </button>
 </div>

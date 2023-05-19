@@ -21,5 +21,6 @@ export class DialogAddPlayerComponent {
   addPlayer(): void {
     this.playerService.addPlayer(this.name);
     this.dialogRef.close();
+    console.log('Player added "Dialog-add-Player.comp": ', this.name);
   }
 }
