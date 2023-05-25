@@ -130,6 +130,32 @@ export class QuizComponent implements OnInit, AfterViewInit {
     this.progressBar.nativeElement.style.width = `${roundedPercent}%`;
   }
 
+  /*answer(selection) {
+    const question = this.questions[this.currentQuestion];
+    const selectedQuestionNumber = selection.slice(-1);
+    const idOfRightAnswer = `answer${question['rightAnswer']}`;
+    this.nextButtonDisabled = false;
+
+    if (this.rightAnswerSelected(selectedQuestionNumber, question)) {
+      this[
+        'answer' + selectedQuestionNumber
+      ].nativeElement.parentElement.classList.add('bg-success');
+      this.rightQuestions++;
+      console.log('rightQuestions', this.rightQuestions);
+    } else {
+      this[
+        'answer' + selectedQuestionNumber
+      ].nativeElement.parentElement.classList.add('bg-danger');
+      this[
+        'answer' + question['rightAnswer']
+      ].nativeElement.parentElement.classList.add('bg-success');
+    }
+    this.nextButtonDisabled = false;
+    this.nextButton.nativeElement.disabled = false;
+    setTimeout(() => {
+      this.dbService.nextQuestion();
+    }, 1000);
+  }*/
   answer(selection) {
     const question = this.questions[this.currentQuestion];
     const selectedQuestionNumber = selection.slice(-1);
@@ -151,6 +177,13 @@ export class QuizComponent implements OnInit, AfterViewInit {
     }
     this.nextButtonDisabled = false;
     this.nextButton.nativeElement.disabled = false;
+    setTimeout(() => {
+      this.dbService.nextQuestion();
+      this.dbService.checkAnswer(
+        question['rightAnswer'],
+        selectedQuestionNumber
+      );
+    }, 1000);
   }
 
   rightAnswerSelected(selectedQuestionNumber, question) {

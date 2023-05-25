@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
+import { PlayerService } from './player.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DbService {
-  constructor() {}
+  constructor(private playerService: PlayerService) {}
   currentQuestion = 0;
 
   rightQuestions = 0;
@@ -126,8 +127,38 @@ export class DbService {
     this.questions.splice(index, 1);
   }
 
-  // Anzahl der Fragen abrufen
+  // Anzahl  der Fragen abrufen
   getQuestionCount() {
     return this.questions.length;
+  }
+
+  nextQuestion() {
+    this.playerService.switchActivePlayer();
+  }
+
+  checkAnswer(questionIndex: number, givenAnswer: number): boolean {
+    const question = this.questions[questionIndex];
+    const isCorrect = question.rightAnswer === givenAnswer;
+    console.log(
+      'Checking answer for question',
+      questionIndex,
+      'given answer:',
+      givenAnswer,
+      'correct answer:',
+      question.rightAnswer,
+      'is correct:',
+      isCorrect
+    );
+
+    if (isCorrect) {
+      // Find the active player and increase their score
+      const activePlayer = this.playerService.getActivePlayer();
+      if (activePlayer) {
+        this.playerService.increaseScore(activePlayer.name);
+        console.log('Increased score for player', activePlayer.name);
+      }
+    }
+
+    return isCorrect;
   }
 }

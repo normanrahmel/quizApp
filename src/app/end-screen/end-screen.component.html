@@ -1,1 +1,6 @@
-<p>end-screen works!</p>
+<div *ngFor="let player of players">
+  <div [ngClass]="{ winner: isWinner(player) }">
+    <span>{{ player.name }}</span
+    >: <span>{{ player.score }}</span>
+  </div>
+</div>
