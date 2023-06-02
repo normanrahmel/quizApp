@@ -12,9 +12,10 @@ export class LoginComponent {
   constructor(private router: Router) {}
 
   onSubmit() {
-    if (this.username === 'Gast' && this.password === 'Test123') {
-      this.router.navigate(['/quiz']);
+    if (this.username === 'Gast' && this.password === '123') {
+      this.router.navigate(['/quiz/:id']);
     } else {
+      //this.router.navigate(['/quiz']);
       alert('Falscher Benutzername oder Passwort.');
     }
   }

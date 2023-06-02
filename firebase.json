@@ -1,0 +1,9 @@
+{
+  "hosting": [
+    {
+      "target": "quiz-app",
+      "source": ".",
+      "frameworksBackend": {}
+    }
+  ]
+}

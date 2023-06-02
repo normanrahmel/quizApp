@@ -32,7 +32,7 @@ export class DbService {
       answer4:
         'Eine Art von Betrug, bei dem ein Angreifer versucht, vertrauliche Informationen wie Benutzernamen, Passwörter und Kreditkartennummern zu erhalten',
       rightAnswer: 4,
-    },
+    } /*
     {
       question: 'Was ist "SSL"?',
       answer1: 'Ein Netzwerkprotokoll zur Authentifizierung von Benutzern',
@@ -100,7 +100,7 @@ export class DbService {
       answer4:
         '2FA kann durch einfaches Eingeben eines Benutzernamens und Passworts umgangen werden',
       rightAnswer: 4,
-    },
+    },*/,
   ];
 
   getAllQuestions() {

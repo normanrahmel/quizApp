@@ -64,8 +64,9 @@
           <img src="assets/img/winner.jpg" />
         </div>
         <div class="marginContainer">
+          <app-end-screen> </app-end-screen>
           <span
-            >Du hast
+            >Ihr habt
             <b id="amountOfRightQuestions" #amountOfRightQuestions>X</b> Fragen
             von <b id="amountOfQuestions" #amountOfQuestions>X</b> Fragen
             <b>richtig</b> Beantwortet!</span
@@ -102,7 +103,6 @@
         <span>
           <b id="questionNumber">{{ this.currentQuestion + 1 }}</b> von
           <b id="allQuestions">9</b> Frage
-          <app-end-screen></app-end-screen>
         </span>
 
         <button
@@ -123,6 +123,7 @@
       <button class="button" (click)="openAddQuestionDialog()">
         Add new Question
       </button>
+      <button class="button" (click)="createAndLoadNewGame()">New Game</button>
     </div>
     <app-player></app-player>
 

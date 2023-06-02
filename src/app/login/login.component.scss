@@ -38,7 +38,20 @@ h1 {
     font-size: 48px;
     margin-bottom: 20px;
 }
+.button {
+    background-color: #0d6efd;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 1000; /* To ensure the button is above all other elements */
+}
 
+.button:hover {
+    background-color: #0d6efd;
+}
 #login-form input {
     width: 100%;
     max-width: 300px;
