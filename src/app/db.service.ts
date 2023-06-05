@@ -36,7 +36,7 @@ export class DbService {
       answer4:
         'Eine Art von Betrug, bei dem ein Angreifer versucht, vertrauliche Informationen wie Benutzernamen, Passwörter und Kreditkartennummern zu erhalten',
       rightAnswer: 4,
-    } /*
+    },
     {
       question: 'Was ist "SSL"?',
       answer1: 'Ein Netzwerkprotokoll zur Authentifizierung von Benutzern',
@@ -104,7 +104,8 @@ export class DbService {
       answer4:
         '2FA kann durch einfaches Eingeben eines Benutzernamens und Passworts umgangen werden',
       rightAnswer: 4,
-    },*/,
+    },
+    ,
   ];
 
   async loadQuestions() {
@@ -158,6 +159,11 @@ export class DbService {
 
   checkAnswer(questionIndex: number, givenAnswer: number): boolean {
     const question = this.questions[questionIndex];
+    if (questionIndex < 0 || questionIndex >= this.questions.length) {
+      console.error('Invalid question index:', questionIndex);
+      return false;
+    }
+
     const isCorrect = question.rightAnswer === givenAnswer;
     console.log(
       'Checking answer for question',
