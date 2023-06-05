@@ -60,11 +60,9 @@ export class EndScreenComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.playerService.getPlayers().subscribe((players: Player[]) => {
-      this.players = players;
-      // Update the winner whenever the players data changes
-      this.winner = this.playerService.getWinner();
-    });
+    // this.playerService.getPlayers().subscribe((players: Player[]) => {
+    // this.players = players;
+    //});
   }
 
   isWinner(player: Player) {

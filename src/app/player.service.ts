@@ -8,6 +8,7 @@ import {
   getDoc,
   doc,
 } from '@angular/fire/firestore';
+import { set } from 'firebase/database';
 export interface Player {
   name: string;
   image: string;
@@ -20,77 +21,73 @@ export interface Player {
 })
 export class PlayerService {
   private players: Player[] = [];
+
   private playersSubject = new BehaviorSubject<Player[]>(this.players);
+
   scores: { [name: string]: number } = {};
 
   constructor(private firestore: Firestore) {}
 
-  /*async addPlayer(name: string) {
-    // Änderung der Methode zu asynchron
-    if (this.players.length >= 2) {
-      alert('In der aktuellen Version sind nur 2-Spieler möglich.');
-      return;
-    }
-    // Deactivate all players before adding a new one
-    this.players.forEach((player) => (player.active = false));
-
-    const newPlayer: Player = {
-      name: name,
-      image: '1.webp',
-      active: true,
-      score: 0,
-    };
-
-    this.players.push(newPlayer);
-    this.playersSubject.next(this.players);
-
-    // Hinzufügen der Spielerdaten in Firestore
-    const playersCollection = collection(this.firestore, 'players');
-    await addDoc(playersCollection, newPlayer);
-
-    console.log('Player added in service: ', newPlayer);
-  }*/
   async createNewGame() {
     const newGame = {
       // Initialisieren Sie hier alle notwendigen Felder
+      currentQuestion: 0,
+      rightQuestions: 0,
+      questions: [],
+      players: this.players,
     };
 
     const gamesCollection = collection(this.firestore, 'games');
     const docRef = await addDoc(gamesCollection, newGame);
     console.log('New game created with ID: ', docRef.id);
     localStorage.setItem('gameId', docRef.id);
-
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
     return docRef.id; // Sie können die Spiel-ID zurückgeben, damit sie in der Anwendung gespeichert oder verwendet werden kann
   }
-  /*
-  async addPlayer(gameId: string, name: string) {
-    // Erstellen Sie den neuen Spieler und fügen Sie ihn zur 'players'-Sammlung hinzu, wie Sie es bereits tun
+
+  async loadPlayers(gameId: string) {
+    const gameDoc = doc(this.firestore, `games/${gameId}`);
+    const gameSnapshot = await getDoc(gameDoc);
+
+    if (gameSnapshot.exists()) {
+      const gameData = gameSnapshot.data();
+      const playersCollection = collection(this.firestore, 'players');
+      const playerDocs = await Promise.all(
+        gameData['players'].map((id) => getDoc(doc(playersCollection, id)))
+      );
+      this.players = playerDocs.map((doc) => doc.data());
+      this.playersSubject.next(this.players);
+    }
+  }
+
+  async addPlayers5555(gameId: string, name: string) {
+    // Create new player
     const newPlayer: Player = {
       name: name,
       image: '1.webp',
-      active: true,
+      active: false,
       score: 0,
     };
 
     const playersCollection = collection(this.firestore, 'players');
     const docRef = await addDoc(playersCollection, newPlayer);
-    console.log('Player added with ID: ', docRef.id);
 
-    // Dann fügen Sie den neuen Spieler zum Spiel hinzu
     const gameDoc = doc(this.firestore, `games/${gameId}`);
     const gameSnapshot = await getDoc(gameDoc);
+
     if (gameSnapshot.exists()) {
       const gameData = gameSnapshot.data();
-      if (gameData['players']) {
-        gameData['players'].push(docRef.id); // Oder fügen Sie das gesamte Spielerobjekt hinzu, wenn Sie möchten
-      } else {
-        gameData['players'] = [docRef.id];
-      }
+      gameData['players'].push(docRef.id);
       await updateDoc(gameDoc, gameData);
-      console.log('Player added to game');
     }
-  }*/
-  async addPlayer(gameId: string, name: string) {
+
+    // Load players again after adding a new one
+    this.loadPlayers(gameId);
+  }
+
+  /*async addPlayer(gameId: string, name: string) {
     // Deactivate all players before adding a new one
     this.players.forEach((player) => (player.active = false));
 
@@ -111,6 +108,7 @@ export class PlayerService {
 
     const gameDoc = doc(this.firestore, `games/${gameId}`);
     const gameSnapshot = await getDoc(gameDoc);
+
     if (gameSnapshot.exists()) {
       const gameData = gameSnapshot.data();
       if (gameData['players']) {
@@ -121,6 +119,88 @@ export class PlayerService {
       await updateDoc(gameDoc, gameData);
       console.log('Player added to game');
     }
+  }*/
+
+  /*async addPlayer(gameId: string, name: string) {
+    // Deactivate all players before adding a new one
+    this.players.forEach((player) => (player.active = false));
+
+    const newPlayer: Player = {
+      name: name,
+      image: '1.webp',
+      active: true,
+      score: 0,
+    };
+
+    const playersCollection = collection(this.firestore, 'players');
+    const docRef = await addDoc(playersCollection, newPlayer);
+    console.log('Player added with ID: ', docRef.id);
+
+    // Add new player to the local list and update the subject
+    this.players.push(newPlayer);
+    this.playersSubject.next(this.players);
+
+    const gameDoc = doc(this.firestore, `games/${gameId}`);
+    const gameSnapshot = await getDoc(gameDoc);
+
+    if (gameSnapshot.exists()) {
+      const gameData = gameSnapshot.data();
+      if (gameData['players']) {
+        gameData['players'].push(docRef.id);
+      } else {
+        gameData['players'] = [docRef.id];
+      }
+      await updateDoc(gameDoc, gameData);
+      console.log('Player added to game');
+    }
+  }*/
+  async addPlayer(gameId: string, name: string) {
+    console.trace('addPlayer was called');
+
+    // Deactivate all players before adding a new one
+    this.players.forEach((player) => (player.active = false));
+
+    const newPlayer: Player = {
+      name: name,
+      image: '1.webp',
+      active: true,
+      score: 0,
+    };
+
+    const playersCollection = collection(this.firestore, 'players');
+    const docRef = await addDoc(playersCollection, newPlayer);
+    console.log('Player added with ID: ', docRef.id);
+
+    // Add new player to the local list
+    this.players.push(newPlayer);
+
+    const gameDoc = doc(this.firestore, `games/${gameId}`);
+    const gameSnapshot = await getDoc(gameDoc);
+
+    if (gameSnapshot.exists()) {
+      const gameData = gameSnapshot.data();
+      if (gameData['players']) {
+        gameData['players'].push(docRef.id);
+      } else {
+        gameData['players'] = [docRef.id];
+      }
+      await updateDoc(gameDoc, gameData);
+      console.log('Player added to game');
+    }
+
+    // Only update the subject after all the async operations
+    this.playersSubject.next(this.players);
+  }
+
+  async updateGameState(gameId: string, gameState: any) {
+    const gameDoc = doc(this.firestore, `games/${gameId}`);
+    await updateDoc(gameDoc, gameState);
+  }
+
+  async getGame(gameId: string) {
+    const gameDoc = doc(this.firestore, `games/${gameId}`);
+    const gameSnapshot = await getDoc(gameDoc);
+    return gameSnapshot.data();
   }
 
   getScores() {
@@ -159,14 +239,6 @@ export class PlayerService {
       // Emit the new players state
       this.playersSubject.next(this.players);
     }
-  }
-
-  getWinner(): Player {
-    // Assuming that the player with the highest score wins
-    // If there are multiple players with the same highest score, the first one is returned
-    return this.players.reduce((prev, current) =>
-      prev.score > current.score ? prev : current
-    );
   }
 
   increaseScore(playerName: string) {

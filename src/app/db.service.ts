@@ -1,11 +1,15 @@
 import { Injectable } from '@angular/core';
 import { PlayerService } from './player.service';
+import { Firestore, collection, getDocs } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DbService {
-  constructor(private playerService: PlayerService) {}
+  constructor(
+    private playerService: PlayerService,
+    private firestore: Firestore
+  ) {}
   currentQuestion = 0;
 
   rightQuestions = 0;
@@ -102,6 +106,22 @@ export class DbService {
       rightAnswer: 4,
     },*/,
   ];
+
+  async loadQuestions() {
+    const questionsCollection = collection(this.firestore, 'questions');
+    const questionSnapshots = await getDocs(questionsCollection);
+    this.questions = questionSnapshots.docs.map((doc) => {
+      const data = doc.data();
+      return {
+        question: data['question'],
+        answer1: data['answer1'],
+        answer2: data['answer2'],
+        answer3: data['answer3'],
+        answer4: data['answer4'],
+        rightAnswer: data['rightAnswer'],
+      };
+    });
+  }
 
   getAllQuestions() {
     return this.questions;

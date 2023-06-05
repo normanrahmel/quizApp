@@ -22,7 +22,7 @@ import {
   addDoc,
 } from '@angular/fire/firestore';
 import { firstValueFrom } from 'rxjs';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-quiz',
   templateUrl: './quiz.component.html',
@@ -54,34 +54,19 @@ export class QuizComponent implements OnInit, AfterViewInit {
     private dialog: MatDialog,
     private firestore: Firestore,
     private playerService: PlayerService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
-  /**
-   * Wird aufgerufen, wenn die Komponente initialisiert wird.
-   * Ruft die Methode getQuestions auf, um die Fragen zu holen.
-   * Es erstellt eine Verbindung zur Firestore-Sammlung 'games' und
-   * ruft die Daten des ersten Spiels in der Sammlung ab.
-   */
   async ngOnInit() {
-    // Ruft die Fragen aus dem DbService ab
+    //await this.dbService.loadQuestions();
     this.getQuestions();
-    //this.playerService.createNewGame();
-
-    // Erstellt eine Verbindung zur Firestore-Sammlung 'games'
-
-    //const gamesCollection = collection(this.firestore, 'games');
-    //const game = await firstValueFrom(collectionData(gamesCollection));
-    //console.log('Test', game);
-
-    // Erstellt ein neues Dokument in der Sammlung 'games'
-    /*const gameDoc = doc(this.firestore, 'games/game1');
-    await setDoc(gameDoc, {
-      title: 'Spiel 1',
-      score: 0,
-      active: true,
-    });*/
+    const gameId = this.route.snapshot.paramMap.get('id'); // replace 'id' with the actual route parameter name
+    if (gameId) {
+      await this.playerService.loadPlayers(gameId);
+    }
   }
+
   async createAndLoadNewGame() {
     const newGameId = await this.playerService.createNewGame();
     this.router.navigate(['/quiz', newGameId]);
@@ -171,7 +156,7 @@ export class QuizComponent implements OnInit, AfterViewInit {
     this.progressBar.nativeElement.style.width = `${roundedPercent}%`;
   }
 
-  answer(selection) {
+  async answer(selection) {
     const question = this.questions[this.currentQuestion];
     const selectedQuestionNumber = selection.slice(-1);
     const idOfRightAnswer = `answer${question['rightAnswer']}`;
@@ -199,19 +184,36 @@ export class QuizComponent implements OnInit, AfterViewInit {
         selectedQuestionNumber
       );
     }, 1000);
+
+    const gameId = localStorage.getItem('gameId');
+    if (gameId) {
+      await this.playerService.updateGameState(gameId, {
+        currentQuestion: this.currentQuestion,
+        rightQuestions: this.rightQuestions,
+      });
+    }
   }
 
   rightAnswerSelected(selectedQuestionNumber, question) {
     return selectedQuestionNumber == question['rightAnswer'];
   }
 
-  nextQuestion() {
+  async nextQuestion() {
     console.log('nextQuestion');
     this.nextButtonDisabled = true;
     this.currentQuestion++;
     this.showQuestion();
     this.nextButton.nativeElement.disabled = true;
     this.resetAnswers();
+
+    // Aktualisieren Sie den Spielzustand in Firestore
+    const gameId = localStorage.getItem('gameId');
+    if (gameId) {
+      await this.playerService.updateGameState(gameId, {
+        currentQuestion: this.currentQuestion,
+        rightQuestions: this.rightQuestions,
+      });
+    }
   }
 
   resetAnswers() {
@@ -236,11 +238,15 @@ export class QuizComponent implements OnInit, AfterViewInit {
     });
   }
 
+  // In QuizComponent
   openAddPlayerDialog(): void {
-    this.dialog.open(DialogAddPlayerComponent, {
-      width: '400px',
-      height: '300px',
-    });
+    const dialogRef: MatDialogRef<DialogAddPlayerComponent> = this.dialog.open(
+      DialogAddPlayerComponent,
+      {
+        width: '400px',
+        height: '300px',
+      }
+    );
   }
 
   openShareDialog(): void {
