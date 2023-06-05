@@ -34,6 +34,7 @@ export class QuizComponent implements OnInit, AfterViewInit {
   questions: any[];
   nextButtonDisabled = true;
   name: string = '';
+
   @ViewChild('endScreen') endScreen: ElementRef;
   @ViewChild('quizBody') quizBody: ElementRef;
   @ViewChild('questionMarkPicture') questionMarkPicture: ElementRef;

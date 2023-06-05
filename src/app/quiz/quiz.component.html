@@ -12,20 +12,13 @@
       dein Wissen!
     </h2>
     <p>
-      Tauche ein in die Welt der Cybersicherheit und teste dein Wissen in einem
-      spannenden Wettbewerb gegen deine Freunde! Unser Quiz bietet eine Vielzahl
-      von Themen - von den Grundlagen wie Firewalls und Verschlüsselung, bis hin
-      zu komplexeren Praktiken wie Phishing und Social Engineering. Ob du ein
-      erfahrener IT-Experte oder ein Neuling auf dem Gebiet bist, dieses Quiz
-      stellt dich vor eine spannende Herausforderung. Es ist eine großartige
-      Möglichkeit, deine Kenntnisse zu testen und gleichzeitig deine Freunde
-      herauszufordern. Mit jedem Frage, die du richtig beantwortest, kannst du
-      Punkte sammeln und dich auf die Bestenliste hinaufarbeiten. Wir sind stets
-      bemüht, unser Quiz zu verbessern und zu erweitern. Wenn du einen Fehler
-      entdeckst oder einen Vorschlag für eine neue Frage hast, freuen wir uns
-      über deinen Beitrag! Klicke einfach auf den "Add Question" Button, um
-      deine Frage oder Anregung mit uns zu teilen. Viel Spaß und möge der Beste
-      gewinnen!
+      <strong>Für jedes Spiel, starte ein neues Quiz.</strong> Teste dein Wissen
+      in der IT-Sicherheit gegen deine Freunde! Unser Quiz deckt viele Themen ab
+      - von Firewalls und Verschlüsselung bis zu Phishing und Social
+      Engineering. Egal ob IT-Experte oder Neuling, stelle dich der
+      Herausforderung, sammle Punkte und klettere auf die Bestenliste. Entdeckst
+      du einen Fehler oder hast eine neue Frage? Klicke auf "Add Question". Viel
+      Spaß und möge der Beste gewinnen!
     </p>
   </div>
   <div class="containerCard">
@@ -118,12 +111,12 @@
     </div>
 
     <div class="top-right">
+      <button class="button" (click)="createAndLoadNewGame()">New Game</button>
       <button class="button" (click)="openAddPlayerDialog()">Add Player</button>
       <button class="button" (click)="openShareDialog()">Share Quiz</button>
       <button class="button" (click)="openAddQuestionDialog()">
         Add new Question
       </button>
-      <button class="button" (click)="createAndLoadNewGame()">New Game</button>
     </div>
     <app-player></app-player>
 
