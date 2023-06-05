@@ -41,9 +41,7 @@ export class PlayerService {
     const docRef = await addDoc(gamesCollection, newGame);
     console.log('New game created with ID: ', docRef.id);
     localStorage.setItem('gameId', docRef.id);
-    setTimeout(() => {
-      window.location.reload();
-    }, 1000);
+
     return docRef.id; // Sie können die Spiel-ID zurückgeben, damit sie in der Anwendung gespeichert oder verwendet werden kann
   }
 

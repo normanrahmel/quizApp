@@ -70,6 +70,9 @@ export class QuizComponent implements OnInit, AfterViewInit {
   async createAndLoadNewGame() {
     const newGameId = await this.playerService.createNewGame();
     this.router.navigate(['/quiz', newGameId]);
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
   }
 
   /**
