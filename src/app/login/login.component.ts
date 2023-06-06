@@ -14,9 +14,8 @@ export class LoginComponent {
 
   onSubmit() {
     if (this.username === 'Gast' && this.password === '123') {
-      this.router.navigate(['/quiz/:id']);
+      this.createAndLoadNewGame();
     } else {
-      //this.router.navigate(['/quiz']);
       alert('Falscher Benutzername oder Passwort.');
     }
   }

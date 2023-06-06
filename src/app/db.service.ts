@@ -1,6 +1,13 @@
 import { Injectable } from '@angular/core';
 import { PlayerService } from './player.service';
-import { Firestore, collection, getDocs } from '@angular/fire/firestore';
+import {
+  DocumentReference,
+  Firestore,
+  addDoc,
+  collection,
+  getDocs,
+} from '@angular/fire/firestore';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Injectable({
   providedIn: 'root',
@@ -105,7 +112,6 @@ export class DbService {
         '2FA kann durch einfaches Eingeben eines Benutzernamens und Passworts umgangen werden',
       rightAnswer: 4,
     },
-    ,
   ];
 
   async loadQuestions() {
@@ -129,8 +135,13 @@ export class DbService {
   }
 
   // Create: Füge eine neue Frage hinzu
-  createQuestion(question: any) {
+  createQuestionOLd(question: any) {
     this.questions.push(question);
+  }
+
+  createQuestion(question: any): Promise<DocumentReference<any>> {
+    const collectionRef = collection(this.firestore, 'games');
+    return addDoc(collectionRef, question);
   }
 
   // Read: Frage nach Index abrufen
@@ -155,6 +166,9 @@ export class DbService {
 
   nextQuestion() {
     this.playerService.switchActivePlayer();
+    if (this.currentQuestion < this.questions.length - 1) {
+      this.currentQuestion++;
+    }
   }
 
   checkAnswer(questionIndex: number, givenAnswer: number): boolean {

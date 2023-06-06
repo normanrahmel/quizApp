@@ -12,10 +12,13 @@
       dein Wissen!
     </h2>
     <p>
-      <strong>Für jedes Spiel, starte ein neues Quiz.</strong> Teste dein Wissen
-      in der IT-Sicherheit gegen deine Freunde! Unser Quiz deckt viele Themen ab
-      - von Firewalls und Verschlüsselung bis zu Phishing und Social
-      Engineering. Egal ob IT-Experte oder Neuling, stelle dich der
+      <strong style="color: red"
+        >Für jedes Spiel, starte ein neues Quiz.</strong
+      >
+      <br />
+      Teste dein Wissen in der IT-Sicherheit gegen deine Freunde! Unser Quiz
+      deckt viele Themen ab - von Firewalls und Verschlüsselung bis zu Phishing
+      und Social Engineering. Egal ob IT-Experte oder Neuling, stelle dich der
       Herausforderung, sammle Punkte und klettere auf die Bestenliste. Entdeckst
       du einen Fehler oder hast eine neue Frage? Klicke auf "Add Question". Viel
       Spaß und möge der Beste gewinnen!
@@ -50,7 +53,7 @@
         class="card-body marginContainer"
         id="endScreen"
         #endScreen
-        style="display: none"
+        *ngIf="gameOver"
       >
         <h2>Quiz beendet!</h2>
         <div class="marginContainer">
@@ -60,9 +63,12 @@
           <app-end-screen> </app-end-screen>
           <span
             >Ihr habt
-            <b id="amountOfRightQuestions" #amountOfRightQuestions>X</b> Fragen
-            von <b id="amountOfQuestions" #amountOfQuestions>X</b> Fragen
-            <b>richtig</b> Beantwortet!</span
+            <b id="amountOfRightQuestions" #amountOfRightQuestions>{{
+              this.rightQuestions
+            }}</b>
+            Fragen von
+            <b> {{ this.questions.length }}</b>
+            Fragen <b>richtig</b> Beantwortet!</span
           >
         </div>
         <div class="buttonRestart">
@@ -71,8 +77,12 @@
           </button>
         </div>
       </div>
-
-      <div class="card-body" id="quizBody" #quizBody>
+      <div
+        *ngIf="this.currentQuestion !== this.questions.length"
+        class="card-body"
+        id="quizBody"
+        #quizBody
+      >
         <h5 class="card-title" id="questionText" #questionText>Frage</h5>
         <div id="containerAnswer">
           <div class="card mb-2 quizAnswer" (click)="answer('answer1')">
@@ -92,10 +102,13 @@
         </div>
       </div>
 
-      <div class="questionFooter" *ngIf="this.currentQuestion !== 9">
+      <div
+        class="questionFooter"
+        *ngIf="this.currentQuestion !== this.questions.length"
+      >
         <span>
           <b id="questionNumber">{{ this.currentQuestion + 1 }}</b> von
-          <b id="allQuestions">9</b> Frage
+          <b id="allQuestions">{{ this.questions.length }}</b> Frage
         </span>
 
         <button
@@ -111,11 +124,19 @@
     </div>
 
     <div class="top-right">
-      <button class="button" (click)="createAndLoadNewGame()">New Game</button>
-      <button class="button" (click)="openAddPlayerDialog()">Add Player</button>
-      <button class="button" (click)="openShareDialog()">Share Quiz</button>
+      <button
+        style="background-color: red"
+        class="button"
+        (click)="createAndLoadNewGame()"
+      >
+        Neues Spiel
+      </button>
+      <button class="button" (click)="openAddPlayerDialog()">
+        Spieler hinzufügen
+      </button>
+      <button class="button" (click)="openShareDialog()">Quiz teilen</button>
       <button class="button" (click)="openAddQuestionDialog()">
-        Add new Question
+        Neue Frage hinzufügen
       </button>
     </div>
     <app-player></app-player>

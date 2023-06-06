@@ -34,6 +34,7 @@ export class QuizComponent implements OnInit, AfterViewInit {
   questions: any[];
   nextButtonDisabled = true;
   name: string = '';
+  gameOver = false;
 
   @ViewChild('endScreen') endScreen: ElementRef;
   @ViewChild('quizBody') quizBody: ElementRef;
@@ -82,7 +83,7 @@ export class QuizComponent implements OnInit, AfterViewInit {
    */
   ngAfterViewInit(): void {
     this.init();
-    this.showQuestion();
+    //this.showQuestion();
   }
 
   /**
@@ -90,6 +91,7 @@ export class QuizComponent implements OnInit, AfterViewInit {
    */
   getQuestions() {
     this.questions = this.dbService.getAllQuestions();
+    //this.showQuestion();
   }
 
   /**
@@ -97,9 +99,9 @@ export class QuizComponent implements OnInit, AfterViewInit {
    * und die erste Frage anzeigt.
    */
   init() {
+    this.showQuestion();
     this.amountOfQuestions.nativeElement.innerHTML =
       this.questions.length.toString();
-    this.showQuestion();
   }
 
   /**
@@ -110,10 +112,12 @@ export class QuizComponent implements OnInit, AfterViewInit {
    */
   showQuestion() {
     if (this.gameIsOver()) {
+      this.gameOver = true;
       this.showEndScreen();
     } else {
       this.updateProgressBar();
       this.showNextQuestion();
+      console.log('Länge Array' + this.questions.length);
     }
   }
 
@@ -255,8 +259,8 @@ export class QuizComponent implements OnInit, AfterViewInit {
 
   openShareDialog(): void {
     this.dialog.open(DialogShareComponent, {
-      width: '450px',
-      height: '220px',
+      width: '470px',
+      height: '240px',
     });
   }
 }

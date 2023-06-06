@@ -1,13 +1,13 @@
-<h1 mat-dialog-title>Add new Player</h1>
+<h1 mat-dialog-title>Neuen Spieler hinzufügen</h1>
 <div mat-dialog-content>
-  <p>Please enter the name of a Player!</p>
+  <p>Bitte füge einen neuen Spieler hinzu!</p>
   <mat-form-field appearance="fill">
-    <mat-label>New Player...</mat-label>
+    <mat-label>Neuer Spieler...</mat-label>
     <input matInput [(ngModel)]="name" />
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button (click)="onNoClick()">Nein Danke</button>
   <!--Button can only be clicked if the length of the input field with the var name is greater than 0-->
   <button
     mat-button
